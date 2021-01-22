@@ -9,7 +9,7 @@ public class ejercicio07 {
 	static int comprobar(int[][] array) {
 		
 		
-		int suma = 0, maquina = 0  ;
+		int suma = 0, maquina = 0, contador = 0  ;
 		
 		//comprobar la suma de las filas
 		
@@ -99,7 +99,21 @@ public class ejercicio07 {
 					
 					return 2 ;
 				}
+		for(int x = 0 ; x < array.length ; x++) {
+			
+			for(int y = 0 ; y < array[2].length ; y++) {
+			
+				if(array[x][y]!=0) {
+					
+					contador ++ ;
+				}
+			}
+		}
 		
+		if(contador==9) {
+			
+			return 4 ;
+		}
 		
 		
 		return 3 ;
@@ -170,6 +184,12 @@ public class ejercicio07 {
 					
 				}while((filas < 0) || (filas > 2) || (columnas < 0) || (columnas > 2) ) ;
 				
+				
+				 if(comprobar(array) == 4) {
+						System.out.println("Habeis empatado");
+						break;
+					}
+				
 			}while(array[filas][columnas] != 0) ;
 			
 			array[filas][columnas] = 1 ;
@@ -189,6 +209,11 @@ public class ejercicio07 {
 				
 				columnas = (int) (Math.random()*3) ;
 				
+				 if(comprobar(array) == 4) {
+						System.out.println("Habeis empatado");
+						break;
+					}
+				
 			}while(array[filas][columnas] != 0) ;
 			
 			array[filas][columnas] = 2 ;
@@ -198,6 +223,10 @@ public class ejercicio07 {
 				System.out.println("Has perdido");
 				
 				break ;
+			}
+			else if(comprobar(array) == 4) {
+				System.out.println("Habeis empatado");
+				break;
 			}
 		
 		}while(comprobar(array) == 3) ;
@@ -267,6 +296,13 @@ public class ejercicio07 {
 					
 				}while((filas < 0) || (filas > 2) || (columnas < 0) || (columnas > 2) ) ;
 				
+				
+				if(comprobar(array) == 4) {
+						System.out.println("Habeis empatado");
+						break;
+					}
+			
+			
 			}while(array[filas][columnas] != 0) ;
 			
 			array[filas][columnas] = 1 ;
@@ -308,13 +344,18 @@ public class ejercicio07 {
 					
 				}while((filas2 < 0) || (filas2 > 2) || (columnas2 < 0) || (columnas2 > 2) ) ;
 				
+				 if(comprobar(array) == 4) {
+						System.out.println("Habeis empatado");
+						break;
+					}
+			
 			}while(array[filas2][columnas2] != 0) ;
 			
 			array[filas2][columnas2] = 2 ;
 			interfaz[filas2][columnas2] = "O" ;
 			
 			if(comprobar(array) == 2) {
-				System.out.println("Ha ganado el (J2)");
+				System.out.println("Ha ganado el J2");
 				
 				break ;
 			}
