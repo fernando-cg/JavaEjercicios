@@ -20,9 +20,16 @@ public class ejercicio04 {
 		}
 		
 		
-		for(int x = array2.length - 1 ; x >= 0 ; x--) {
-			
-			array2[x] = array[array.length - (x+1)] ; 
+		for(int x = 0 ; x < array2.length ; x++) {
+			if(x+1== array2.length) {
+				
+			array2[0] = array[array.length - 1] ;
+				
+			}
+			else {
+				
+				array2[x+1] = array[x] ; 	
+			}
 		}
 		
 		System.out.println("");

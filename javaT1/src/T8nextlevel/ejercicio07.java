@@ -386,37 +386,43 @@ public class ejercicio07 {
 		for(int x = 0 ; x < 16 ; x++) {
 			System.out.println("");
 		}
+			
+			try {
+				do {
+					do {
+						
+						System.out.println("Por favor elija su modo de juego: ");
+						System.out.println("1:Jugar contra la máquina") ;
+						System.out.println("2:Jugar contra un oponente") ;
+						System.out.println("3:Salir") ;
+						System.out.print("Modo de juego:");
+						menu = teclado.nextInt() ;
+							
+						for(int x = 0 ; x < 16 ; x++) {
+							System.out.println("");
+						}
+						
+					}while(menu != 1 && menu != 2 && menu !=3) ;
+					
+					switch (menu) {
+						case 1:
+							maquina() ;
+							
+							break;
+							
+						case 2:
+							
+							persona() ;
+							
+							break;
+						} 
+				}while(menu != 3) ;	
+			
+			}catch(java.util.NoSuchElementException e){
+				
+				System.out.println("algo ha ido mal");
+			}
 		
-		do {
-			do {
-				
-				System.out.println("Por favor elija su modo de juego: ");
-				System.out.println("1:Jugar contra la máquina") ;
-				System.out.println("2:Jugar contra un oponente") ;
-				System.out.println("3:Salir") ;
-				System.out.print("Modo de juego:");
-				menu = teclado.nextInt() ;
-				
-				for(int x = 0 ; x < 16 ; x++) {
-					System.out.println("");
-				}
-				
-			}while(menu != 1 && menu != 2 && menu !=3) ;
-			
-			switch (menu) {
-				case 1:
-					maquina() ;
-					
-					break;
-					
-				case 2:
-					
-					persona() ;
-					
-					break;
-				}
-			
-		}while(menu != 3) ;
 		
 		teclado.close();
 	}
