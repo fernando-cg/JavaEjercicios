@@ -7,12 +7,19 @@ public class Main {
 	public static void main(String[] args) {
 
 		//creamos el array de objetos 
-		
-		Alumno a[] = new Alumno[4];
-		
+				
 		Scanner sc = new Scanner(System.in) ;
+		
+		System.out.println("¿Cuantos objetos quieres introducir?");
+		
+		int nobjetos = sc.nextInt() ;
+		
+		sc.nextLine() ;
+		
+		Alumno a[] = new Alumno[nobjetos];
 
 		int edad,curso ;
+		
 		String nombre ;
 		
 		//instanciamos
