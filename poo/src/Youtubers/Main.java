@@ -30,8 +30,6 @@ public class Main {
 			
 			paisorigen = sc.nextLine() ;
 			
-			sc.nextLine() ;
-			
 			System.out.print("Introduzca la cantidad de seguidores de " +  alias + ": ");
 			
 			nseg = sc.nextInt() ;
@@ -44,9 +42,16 @@ public class Main {
 			
 			anio = sc.nextInt() ;
 			
+			sc.nextLine() ;
+			
 			y[i] = new Youtuber(alias,nseg,nvid,paisorigen,anio) ;
-							
+			
 		}
+		
+		y[0].ordenar(y);
+		
+		y[0].ordenar2(y);
+
 		
 		sc.close();
 
