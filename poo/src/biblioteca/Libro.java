@@ -44,7 +44,7 @@ public class Libro {
 	
 	//devoluición
 	
-	public boolean devolución() {
+	public boolean devolucion() {
 		
 		boolean retorno = false ;
 		
