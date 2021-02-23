@@ -11,13 +11,47 @@ import javax.swing.JPanel;
 
 public class visor {
 	
-	public static void crearClase() {
+	public static void crearClase(ArrayList coche) {
 		
 		String marca =JOptionPane.showInputDialog(null,"Introduzca la marca") ;
 		
 		String modelo =JOptionPane.showInputDialog(null,"Introduzca el modelo") ;
 		
-		String fecha =JOptionPane.showInputDialog(null,"Introduzca la fecha de matriculación") ;
+		String fecha =JOptionPane.showInputDialog(null,"Introduzca la fecha de matriculación (dd/mm/aaaa)") ;
+		
+		int dia, mes, anio ;
+		
+		int contador = 0 ;
+		
+		for(int x = 0 ; x < fecha.length() ; x++) {
+			
+			if(!(fecha.charAt(x) == '/')) {
+				contador++ ;
+			}
+			else {
+				
+				break ;
+			}
+		}
+		
+		dia = Integer.parseInt(fecha.substring(0,contador)) ;
+		
+		int contador2 = 0 ;
+		
+		for(int x = contador + 1 ; x < fecha.length() ; x++) {
+			
+			if(!(fecha.charAt(x) == '/')) {
+				contador2++ ;
+			}
+			else {
+				
+				break ;
+			}
+		}
+		
+		mes = Integer.parseInt(fecha.substring(contador+1,contador2)) ;
+		
+		anio = Integer.parseInt(fecha.substring(contador2+1,fecha.length())) ;
 		
 		ArrayList<String> colores = new ArrayList();
 		
@@ -32,12 +66,13 @@ public class visor {
 			
 		}while(resp == 0);
 		
-		String kms =JOptionPane.showInputDialog(null,"Introduzca los Kilómetros que tiene el coche") ;
+		int kms =Integer.parseInt(JOptionPane.showInputDialog(null,"Introduzca los Kilómetros que tiene el coche")) ;
 		
-		String precioCompra =JOptionPane.showInputDialog(null,"Introduzca el precio de compra") ;
+		int precioCompra =Integer.parseInt(JOptionPane.showInputDialog(null,"Introduzca el precio de compra")) ;
 		
-		String precioVenta =JOptionPane.showInputDialog(null,"Introduzca el precio de venta") ;
+		int precioVenta =Integer.parseInt(JOptionPane.showInputDialog(null,"Introduzca el precio de venta")) ;
 		
+		coche.add(new coche( marca,  modelo,  colores,  kms, precioVenta, precioCompra,dia, mes, anio)) ;
 	}
 
 	public static void main(String[] args) {
@@ -50,6 +85,8 @@ public class visor {
 		JOptionPane.showMessageDialog(null, box, "Seleccione una opción:",JOptionPane.QUESTION_MESSAGE);
 		int menu = box.getSelectedIndex() ;
 		
+		ArrayList<coche> coche = new ArrayList();
+		
 		switch (menu) {
 		case 0:
 			
@@ -57,7 +94,7 @@ public class visor {
 
 		case 1:
 			
-			crearClase() ;
+			crearClase(coche) ;
 			
 			break;
 

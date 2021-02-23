@@ -1,6 +1,7 @@
 package concesionario;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class coche {
@@ -32,19 +33,25 @@ public class coche {
 	
 	//metodos
 
-	public coche(String marca, String modelo, Date fechaMat, ArrayList color, int kms, double precioVenta,
-			double precioCompra) {
-		super();
+	public coche(String marca, String modelo, ArrayList<String> colores, int kms, double precioVenta,
+			double precioCompra, int dia, int mes, int anio) {
 		this.marca = marca;
 		this.modelo = modelo;
-		this.fechaMat = fechaMat;
-		this.color = color;
+		Calendar calendario = Calendar.getInstance() ;
+		calendario.set(anio, mes, dia);
+		this.fechaMat = calendario.getTime() ;
+		this.color = colores;
 		this.kms = kms;
 		this.precioVenta = precioVenta;
 		this.precioCompra = precioCompra;
-		annios = ;
+		Calendar calendario2 = Calendar.getInstance() ;
+		
+		
+		this.annios = (int) ((((((calendario2.getTimeInMillis() - calendario.getTimeInMillis())/1000)/60)/60)/24)/365) ;
 	}
 	
+
+
 	public double beneficio() {
 		
 		double beneficio = precioVenta - precioCompra ;
