@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Atleta implements Comparable<Atleta> {
+public class Atleta{
 	
 	private int dorsal ;
 	
@@ -38,18 +38,5 @@ public class Atleta implements Comparable<Atleta> {
 		
 		return "dorsal: " + dorsal + ", nombre: " + nombre + ", pais: " + pais + ", tiempo: " + formatter.format(tiempo) + "\n" ;
 	}
-
-
-
-	@Override
-	public int compareTo(Atleta o) {
-		
-		if(
-		
-		return 0;
-	}
-	
-	
-	
 	
 }
