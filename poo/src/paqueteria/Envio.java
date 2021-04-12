@@ -1,7 +1,5 @@
 package paqueteria;
 
-import cifrados.* ;
-
 public class Envio {
 
 	private String traking ;
