@@ -11,7 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.UIManager;
 
 public class Main {
-	//del menu he fusionado la opcion de buscar y ordenar por id con la de mostrar todas las oficinas porque ya desde que se crean se ordenan por id , me ha faltado configurar con trycatch el boton Cancelar de los paneles , iba a hacerlo con JFrame pero no me esta cogiendo las rutas que ponia sin embargo el JOption pane con los iconos si, Mañana te lo pregunto en clase , le puse la tematica del betis porque se que en vd te gusta el betis mas que el sevilla.
+	//del menu he fusionado la opcion de buscar y ordenar por id con la de mostrar todas las oficinas porque ya desde que se crean se ordenan por id , me ha faltado configurar con trycatch el boton Cancelar de los paneles , iba a hacerlo con JFrame pero no me esta cogiendo las rutas que ponia sin embargo el JOption pane con los iconos si, Maï¿½ana te lo pregunto en clase , le puse la tematica del betis porque se que en vd te gusta el betis mas que el sevilla.
 	public static boolean comprobar(String dni) {
 		
 		int total=dni.length() ;
@@ -208,7 +208,7 @@ public class Main {
 				
 				int idof2 = box1.getSelectedIndex() ;
 				
-				JOptionPane.showInternalMessageDialog(null, "ID: " + sucursales[idof2].getId() + " \nLocalidad: " + sucursales[idof2].getLocalidad() + " \nCalle: " + sucursales[idof2].getCalle(),"Betis Envios",JOptionPane.QUESTION_MESSAGE ,new ImageIcon(Main.class.getResource("betis2.png")));
+				JOptionPane.showMessageDialog(null, "ID: " + sucursales[idof2].getId() + " \nLocalidad: " + sucursales[idof2].getLocalidad() + " \nCalle: " + sucursales[idof2].getCalle(),"Betis Envios",JOptionPane.QUESTION_MESSAGE ,new ImageIcon(Main.class.getResource("betis2.png")));
 				
 				break;
 			case 3:
