@@ -1,32 +1,22 @@
 package Youtubers;
 
+import java.time.Duration;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import javax.swing.JOptionPane;
 
 public class prueba {
 
 	public static void main(String[] args) {
+		
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
 
-	    String a[] = {"express","normal","normal","alto","express","express","normal","alto","alto","express"};
-	    for (int x = 0; x < a.length; x++) {
-	        for (int i = 0; i < a.length; i++) {
-	            if((!a[x].equalsIgnoreCase("normal")) && a[i].equalsIgnoreCase("normal")&& (!a[x].equalsIgnoreCase(a[i]))){
-	                String tmp = a[x];
-	                a[x] = a[i];
-	                a[i] = tmp;
-	            }
-	            if((!a[x].equalsIgnoreCase("alto")) && a[i].equalsIgnoreCase("alto")&& (!a[x].equalsIgnoreCase(a[i])) && (!a[x].equalsIgnoreCase("normal"))){
-	                String tmp = a[x];
-	                a[x] = a[i];
-	                a[i] = tmp;
-	            }
-	            if((!a[x].equalsIgnoreCase("express")) && a[i].equalsIgnoreCase("express")&& (!a[x].equalsIgnoreCase(a[i])) && (!a[x].equalsIgnoreCase("normal")) && (!a[x].equalsIgnoreCase("alto"))){
-	                String tmp = a[x];
-	                a[x] = a[i];
-	                a[i] = tmp;
-	            }
-	        }
-	    }
+        cal1.set(2000,2,1) ;
+        cal2.set(2000,2,10);
+        int diitas = (int) Duration.between(cal1.toInstant(), cal2.toInstant()).toDays();
+        System.out.println(diitas);
+        System.out.println(cal1.MONTH);
 	}
 }
