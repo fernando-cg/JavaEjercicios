@@ -21,6 +21,24 @@ public abstract class Persona {
 		
 		dni = String.valueOf(numdni) + letras[resto] ;
 	}
-	
-	
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public int getEdad() {
+		return edad;
+	}
+
+	public Persona(String nombre, String dni, int edad) {
+		super();
+		this.nombre = nombre;
+		this.dni = dni;
+		this.edad = edad;
+	}
+		
 }

@@ -2,17 +2,27 @@ package camping;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.StringTokenizer;
 
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+import escritura.Alumno;
 import gregoriancalendar.calendartodec;
 
 public class Main {
@@ -27,6 +37,195 @@ public class Main {
 	private static int[] autocaravanas = {0,0,0,0,0,0,0} ;
 	
 	private static int[] tiendas = {0,0,0,0,0} ;
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	private static void eliminarFila(int fila,String archivo) {
+		
+		ArrayList<String> array = new ArrayList<String>() ;
+		String linea = null;
+		
+	    BufferedReader leerFichero;
+	    
+	    try {
+	    	
+	    	leerFichero = new BufferedReader (new FileReader(archivo));
+			while( (linea = leerFichero.readLine()) != null)
+			{
+				
+				array.add(linea) ;
+			   
+			   
+			   }
+			
+			array.remove(fila) ;
+			BufferedWriter escribir = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(archivo,true), "utf-8"));
+			BufferedWriter bw = new BufferedWriter(new FileWriter(archivo));
+			bw.write("");
+			for(int x = 0 ; x < array.size() ; x++) {
+				escribir.write(array.get(x)) ;
+			}
+		} catch (NumberFormatException | IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+
+	public static void lecturaemple(){
+		
+		String linea = null;
+		
+        BufferedReader leerFichero;
+        
+       try {
+    	leerFichero = new BufferedReader (new FileReader("empleados.txt"));
+    	
+		while( (linea = leerFichero.readLine()) != null)
+		{
+			
+		   StringTokenizer token = new StringTokenizer(linea, "\t");
+		   
+		   String     nombre =  token.nextToken().trim() ;
+		   String  dni =  token.nextToken().trim();
+		   String       edad =  token.nextToken().trim();
+		   String     id =  token.nextToken().trim();
+		   String     usuario =  token.nextToken().trim();
+		   String     password =  token.nextToken().trim();
+		   
+		   int    edad2=Integer.parseInt(edad);
+		   int    id2=Integer.parseInt(id);
+		   
+		   empleados.add(new Empleado(nombre ,dni,edad2, id2,usuario,password)) ;
+		   
+		   }
+		
+		} catch (NumberFormatException | IOException e) {
+			
+			System.out.println("Ha habido un error");
+		}
+		
+	}
+
+	public static void escribir(String cadena,String directorio) {
+		
+		FileReader f = null ;
+		
+		try {
+			
+			f = new FileReader(directorio);
+			
+		} catch (FileNotFoundException e) {
+			
+			e.printStackTrace();
+			
+		}
+		
+		try {
+			
+			BufferedWriter escribir = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(directorio,true), "utf-8"));
+		
+			escribir.write(cadena);
+			
+			escribir.close();
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+			System.out.println("Error");
+		}
+			
+	    
+		
+	}
+	public static void lecturaCliente() {
+		
+		String linea = null;
+		
+        BufferedReader leerFichero;
+        
+       try {
+    	leerFichero = new BufferedReader (new FileReader("clientes.txt"));
+    	
+		while( (linea = leerFichero.readLine()) != null)
+		{
+			
+		   StringTokenizer token = new StringTokenizer(linea, "\t");
+		   
+		   String     nombre =  token.nextToken().trim() ;
+		   String  dni =  token.nextToken().trim();
+		   String       edad =  token.nextToken().trim();
+		   String     id =  token.nextToken().trim();
+		   String     socioclub =  token.nextToken().trim();
+		   String     acompaniantes =  token.nextToken().trim();
+		   String     fechaEntrada =  token.nextToken().trim();
+		   String     fechaSalida =  token.nextToken().trim();
+		   String     tipoHuesped =  token.nextToken().trim();
+		   String     longitudVehiculo =  token.nextToken().trim();
+		   String     precio =  token.nextToken().trim();
+		   
+		   int    edad2=Integer.parseInt(edad);
+		   int    id2=Integer.parseInt(id);
+		   int    longitudVehiculo2=Integer.parseInt(longitudVehiculo);
+		   boolean socioclub2 = Boolean.parseBoolean(socioclub) ;
+		   int    acompaniantes2=Integer.parseInt(acompaniantes);
+		   Date fechaEntrada2 = new SimpleDateFormat("dd/MM/yyyy").parse(fechaEntrada);
+		   Date fechaSalida2 = new SimpleDateFormat("dd/MM/yyyy").parse(fechaSalida);
+		   double precio2 = Double.parseDouble(precio) ;
+		   
+		   clientes.add(new Cliente(nombre ,dni,edad2, id2, socioclub2,acompaniantes2,fechaEntrada2,fechaSalida2,tipoHuesped,longitudVehiculo2,precio2)) ;
+		   
+		   }
+		
+		} catch (NumberFormatException | IOException e) {
+			
+			System.out.println("Ha habido un error");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+       
+	}
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public static Date maximaFechaTienda(ArrayList<Cliente> clientes) {
+		
+		Date retorno = null ;
+		
+		for(int x = 0 ; x < clientes.size() ; x++) {
+			if(((int)Duration.between(retorno.toInstant(), clientes.get(x).getFechaSalida().toInstant()).toDays())> 0 && clientes.get(x).getTipoHuesped().equalsIgnoreCase("tienda")){
+				
+				retorno =  clientes.get(x).getFechaSalida() ;
+			}
+		}
+		
+		return retorno;
+	}
+	
+	public static Date maximaFechaCaravana(ArrayList<Cliente> clientes) {
+		
+		Date retorno = null ;
+		
+		for(int x = 0 ; x < clientes.size() ; x++) {
+			if(((int)Duration.between(retorno.toInstant(), clientes.get(x).getFechaSalida().toInstant()).toDays())> 0 && clientes.get(x).getTipoHuesped().equalsIgnoreCase("caravana")){
+				
+				retorno =  clientes.get(x).getFechaSalida() ;
+			}
+		}
+		
+		return retorno;
+	}
+	
+	public static Date maximaFechaAuto(ArrayList<Cliente> clientes) {
+		
+		Date retorno = null ;
+		
+		for(int x = 0 ; x < clientes.size() ; x++) {
+			if(((int)Duration.between(retorno.toInstant(), clientes.get(x).getFechaSalida().toInstant()).toDays())> 0 && clientes.get(x).getTipoHuesped().equalsIgnoreCase("autocaravana")){
+				
+				retorno =  clientes.get(x).getFechaSalida() ;
+			}
+		}
+		
+		return retorno;
+	}
 	
 	public static void vermapa() {
 		
@@ -92,9 +291,6 @@ public class Main {
 	
 	public static void crearcliente() {
 		
-		//ver si algun cliente ya se ha marchado para actualizar la lista de completados
-		
-		
 		String usuario ;
 		String pass ;
 		do {
@@ -104,7 +300,7 @@ public class Main {
 			pass = (String) JOptionPane.showInputDialog(null,"introduzca el pass","La Rana",JOptionPane.QUESTION_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")),null,null);
 			
 			if(comp(usuario,pass) == false) {
-				JOptionPane.showMessageDialog(null, "La contraseña o el usuario es incorrecto","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
+				JOptionPane.showMessageDialog(null, "El password o el usuario es incorrecto","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
 			}
 		}while(comp(usuario,pass) == false) ; 
 		
@@ -123,7 +319,7 @@ public class Main {
 		}while(temp) ;
 		
 		String opciones[] = {"Si","No"} ;
-		int opcion = JOptionPane.showOptionDialog(null, "¿Eres socio del camping?", "La Rana",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, new ImageIcon(Main.class.getResource("camping.png")), opciones,opciones[0]) ;
+		int opcion = JOptionPane.showOptionDialog(null, "�Eres socio del camping?", "La Rana",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, new ImageIcon(Main.class.getResource("camping.png")), opciones,opciones[0]) ;
 		boolean socio ;
 		
 		if(opcion == 0) {
@@ -169,37 +365,45 @@ public class Main {
 			}while(temp) ;
 		}
 		
-		temp = false ;
+		Date fsalida = null ;
 		Date fentrada = null ;
 		
 		do {
-			try {
-				
-				
-				String fent =  (String) JOptionPane.showInputDialog(null,"Introduzca la fecha de entrada dd/mm/AAAA","La Rana",JOptionPane.QUESTION_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")),null,null);
-				fentrada = new SimpleDateFormat("dd/MM/yyyy").parse(fent);
-				temp = false ;
-			} catch(ParseException e){
-				temp = true ;
-				JOptionPane.showMessageDialog(null, "Has introducido un formato de numero incorrecto","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
+			
+			temp = false ;
+			do {
+				try {
+					
+					
+					String fent =  (String) JOptionPane.showInputDialog(null,"Introduzca la fecha de entrada dd/mm/AAAA","La Rana",JOptionPane.QUESTION_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")),null,null);
+					fentrada = new SimpleDateFormat("dd/MM/yyyy").parse(fent);
+					temp = false ;
+				} catch(ParseException e){
+					temp = true ;
+					JOptionPane.showMessageDialog(null, "Has introducido un formato de numero incorrecto","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
+				}
+			}while(temp) ;
+			
+			temp = false ;
+			
+			do {
+				try {
+					
+					
+					String fent =  (String) JOptionPane.showInputDialog(null,"Introduzca la fecha de salida dd/mm/AAAA","La Rana",JOptionPane.QUESTION_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")),null,null);
+					fsalida = new SimpleDateFormat("dd/MM/yyyy").parse(fent);
+					temp = false ;
+				} catch(ParseException e){
+					temp = true ;
+					JOptionPane.showMessageDialog(null, "Has introducido un formato de numero incorrecto","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
+				}
+			}while(temp) ;
+			
+			if(0>=((int) Duration.between(fentrada.toInstant() ,fsalida.toInstant()).toDays())) {
+				JOptionPane.showMessageDialog(null, "Porfavor introduzca la fecha de salida mas grande que la de entrada","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
 			}
-		}while(temp) ;
-		
-		temp = false ;
-		Date fsalida = null ;
-		
-		do {
-			try {
-				
-				
-				String fent =  (String) JOptionPane.showInputDialog(null,"Introduzca la fecha de salida dd/mm/AAAA","La Rana",JOptionPane.QUESTION_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")),null,null);
-				fsalida = new SimpleDateFormat("dd/MM/yyyy").parse(fent);
-				temp = false ;
-			} catch(ParseException e){
-				temp = true ;
-				JOptionPane.showMessageDialog(null, "Has introducido un formato de numero incorrecto","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
-			}
-		}while(temp) ;
+			
+		}while(0>=((int) Duration.between(fentrada.toInstant() ,fsalida.toInstant()).toDays())) ;
 		
 		if(tipo.equalsIgnoreCase("tienda")) {
 			boolean comp = false ;
@@ -208,9 +412,10 @@ public class Main {
 					comp = true ;
 				}
 			}
-			if (comp ==true) {
+			if (comp ==true || ((int)Duration.between(maximaFechaTienda(clientes).toInstant(),fentrada.toInstant()).toDays())> 0) {
 				JOptionPane.showMessageDialog(null, "La reserva se ha realizado con exito","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
 				clientes.add(new Cliente(nombre,edad,socio,acomp,fentrada,fsalida,tipo,longitud)) ;
+				escribir(clientes.get(clientes.size()-1).toString(),"clientes.txt") ;
 				for(int x = 0 ; x < tiendas.length ; x++) {
 					if(tiendas[x]== 0 ) {
 						tiendas[x]= clientes.get(clientes.size()-1).getId() ;
@@ -218,7 +423,8 @@ public class Main {
 					}
 				}
 			}else{
-				JOptionPane.showMessageDialog(null, "El parking esta completo no se ha podido hacer la reserva","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
+				SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+				JOptionPane.showMessageDialog(null, "El parking esta completo no se ha podido hacer la reserva, pruebe a hacer la reserva a partir de: " + f.format(maximaFechaTienda(clientes)) ,"La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
 			}
 			
 			
@@ -230,9 +436,10 @@ public class Main {
 					comp = true ;
 				}
 			}
-			if (comp ==true) {
+			if (comp ==true || ((int)Duration.between(maximaFechaCaravana(clientes).toInstant(),fentrada.toInstant()).toDays())> 0) {
 				JOptionPane.showMessageDialog(null, "La reserva se ha realizado con exito","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
 				clientes.add(new Cliente(nombre,edad,socio,acomp,fentrada,fsalida,tipo,longitud)) ;
+				escribir(clientes.get(clientes.size()-1).toString(),"clientes.txt") ;
 				for(int x = 0 ; x < caravanas.length ; x++) {
 					if(caravanas[x]== 0 ) {
 						caravanas[x]= clientes.get(clientes.size()-1).getId() ;
@@ -240,7 +447,8 @@ public class Main {
 					}
 				}
 			}else{
-				JOptionPane.showMessageDialog(null, "El parking esta completo no se ha podido hacer la reserva","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
+				SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+				JOptionPane.showMessageDialog(null, "El parking esta completo no se ha podido hacer la reserva, pruebe a hacer la reserva a partir de: " + f.format(maximaFechaCaravana(clientes)) ,"La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
 			}
 			
 		}else if(tipo.equalsIgnoreCase("autocaravana")) {
@@ -250,9 +458,10 @@ public class Main {
 					comp = true ;
 				}
 			}
-			if (comp ==true) {
+			if (comp ==true || ((int)Duration.between(maximaFechaAuto(clientes).toInstant(),fentrada.toInstant()).toDays())> 0) {
 				JOptionPane.showMessageDialog(null, "La reserva se ha realizado con exito","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
 				clientes.add(new Cliente(nombre,edad,socio,acomp,fentrada,fsalida,tipo,longitud)) ;
+				escribir(clientes.get(clientes.size()-1).toString(),"clientes.txt") ;
 				for(int x = 0 ; x < autocaravanas.length ; x++) {
 					if(autocaravanas[x]== 0 ) {
 						autocaravanas[x]= clientes.get(clientes.size()-1).getId() ;
@@ -260,7 +469,8 @@ public class Main {
 					}
 				}
 			}else{
-				JOptionPane.showMessageDialog(null, "El parking esta completo no se ha podido hacer la reserva","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
+				SimpleDateFormat f = new SimpleDateFormat("dd/MM/yyyy");
+				JOptionPane.showMessageDialog(null, "El parking esta completo no se ha podido hacer la reserva, pruebe a hacer la reserva a partir de: " + f.format(maximaFechaAuto(clientes)) ,"La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
 			}
 		}
 	}
@@ -285,7 +495,7 @@ public class Main {
 		do {
 			try {
 			
-				 edad =  Integer.parseInt((String) JOptionPane.showInputDialog(null,"la edad del usuario root","La Rana",JOptionPane.QUESTION_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")),null,null));
+				 edad =  Integer.parseInt((String) JOptionPane.showInputDialog(null,"la edad del usuario","La Rana",JOptionPane.QUESTION_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")),null,null));
 				 temp = false ;
 			} catch(NumberFormatException e){
 				temp = true ;
@@ -297,6 +507,7 @@ public class Main {
 		String pass1 = (String) JOptionPane.showInputDialog(null,"introduzca el password del empleado","La Rana",JOptionPane.QUESTION_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")),null,null);
 		
 		empleados.add(new Empleado(nombre,edad,usuario1,pass1)) ;
+		escribir(empleados.get(empleados.size()-1).toString(),"empleados.txt") ;
 	}
 
 	public static void main(String[] args) {
@@ -307,6 +518,8 @@ public class Main {
 	    UI.put("Menu.Foreground",Color.red);
 	    UI.put("OptionPane.messageFont", new Font("Arial",Font.CENTER_BASELINE,15));
 	    UI.put("OptionPane.messageForeground", Color.white);
+	    lecturaemple() ;
+	    lecturaCliente() ;
 	    
 		JOptionPane.showMessageDialog(null, "Bienvenido al camping La Rana","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
 		
@@ -321,6 +534,7 @@ public class Main {
 				
 				if(dur <=0) {
 					clientes.remove(x) ;
+					eliminarFila(x, "clientes.txt") ;
 				}
 			}
 			int opcion = JOptionPane.showOptionDialog(null, "Seleccione una opcion", "La Rana",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, new ImageIcon(Main.class.getResource("camping.png")), opciones,opciones[3]) ;

@@ -1,6 +1,7 @@
 package camping;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -23,6 +24,23 @@ public class Cliente extends Persona {
 	private int LongitudVehiculo ;
 	
 	private double precio ;
+	
+	
+
+	public Cliente(String nombre, String dni, int edad, int id, boolean socioclub, int acompaniantes, Date fechaEntrada,
+			Date fechaSalida, String tipoHuesped, int longitudVehiculo, double precio) {
+		super(nombre, dni, edad);
+		this.id = id;
+		this.socioclub = socioclub;
+		this.acompaniantes = acompaniantes;
+		this.fechaEntrada = fechaEntrada;
+		this.fechaSalida = fechaSalida;
+		this.tipoHuesped = tipoHuesped;
+		LongitudVehiculo = longitudVehiculo;
+		this.precio = precio;
+		idnext = id;
+		idnext ++ ;
+	}
 
 	public Cliente(String nombre, int edad, boolean socioclub, int acompaniantes, Date fechaEntrada, Date fechaSalida,
 			String tipoHuesped,int longitudVehiculo) {
@@ -88,7 +106,15 @@ public class Cliente extends Persona {
 	public void setFechaSalida(Date fechaSalida) {
 		this.fechaSalida = fechaSalida;
 	}
-	
+
+	public String getTipoHuesped() {
+		return tipoHuesped;
+	}
+
+	@Override
+	public String toString() {
+		return  getNombre() + "\t" + getDni() + "\t" + getEdad() + "\t" + id + "\t" + socioclub + "\t" + acompaniantes + "\t" + fechaEntrada + "\t" + fechaSalida + "\t" + tipoHuesped + "\t" + LongitudVehiculo + "\t" + precio + "\n";
+	}
 	
 	
 }
