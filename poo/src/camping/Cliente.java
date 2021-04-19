@@ -80,6 +80,14 @@ public class Cliente extends Persona {
 	public int getId() {
 		return id;
 	}
+
+	public Date getFechaSalida() {
+		return fechaSalida;
+	}
+
+	public void setFechaSalida(Date fechaSalida) {
+		this.fechaSalida = fechaSalida;
+	}
 	
 	
 	

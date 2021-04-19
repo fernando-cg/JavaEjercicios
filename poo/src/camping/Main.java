@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -11,6 +12,8 @@ import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+
+import gregoriancalendar.calendartodec;
 
 public class Main {
 	//me ha faltado que funcione el boton de cancelar, y que se actualize el mapa de ocupacion a la hora de crear un cliente tb me ha faltado poner un if en clientes para comprobar si hay empleados creados
@@ -89,7 +92,8 @@ public class Main {
 	
 	public static void crearcliente() {
 		
-		//ver si algun cliente ya se ha marchado para actualizar la lista de completados 
+		//ver si algun cliente ya se ha marchado para actualizar la lista de completados
+		
 		
 		String usuario ;
 		String pass ;
@@ -142,6 +146,29 @@ public class Main {
 			}
 		}while(temp) ;
 		
+		String opciones1[] = {"caravana","autocaravana","tienda"} ;
+		String tipo = (String) JOptionPane.showInputDialog(null,
+	             "seleccione el tipo de camping", "La Rana",
+	             JOptionPane.INFORMATION_MESSAGE, new ImageIcon(Main.class.getResource("camping.png")),
+	             opciones1, opciones1[0]);
+		
+		int longitud = 0 ;
+		
+		if(!tipo.equalsIgnoreCase("tienda")) {
+			
+		temp = false ;
+			do {
+				try {
+				
+					 longitud =  Integer.parseInt((String) JOptionPane.showInputDialog(null,"la longitud del vehiculo","La Rana",JOptionPane.QUESTION_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")),null,null));
+					 temp = false ;
+				} catch(NumberFormatException e){
+					temp = true ;
+					JOptionPane.showMessageDialog(null, "Has introducido un formato de longitud incorrecto","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
+				}
+			}while(temp) ;
+		}
+		
 		temp = false ;
 		Date fentrada = null ;
 		
@@ -173,29 +200,6 @@ public class Main {
 				JOptionPane.showMessageDialog(null, "Has introducido un formato de numero incorrecto","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
 			}
 		}while(temp) ;
-		
-		String opciones1[] = {"caravana","autocaravana","tienda"} ;
-		String tipo = (String) JOptionPane.showInputDialog(null,
-	             "seleccione el tipo de camping", "La Rana",
-	             JOptionPane.INFORMATION_MESSAGE, new ImageIcon(Main.class.getResource("camping.png")),
-	             opciones1, opciones1[0]);
-		
-		int longitud = 0 ;
-		
-		if(!tipo.equalsIgnoreCase("tienda")) {
-			
-		temp = false ;
-			do {
-				try {
-				
-					 longitud =  Integer.parseInt((String) JOptionPane.showInputDialog(null,"la longitud del vehiculo","La Rana",JOptionPane.QUESTION_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")),null,null));
-					 temp = false ;
-				} catch(NumberFormatException e){
-					temp = true ;
-					JOptionPane.showMessageDialog(null, "Has introducido un formato de longitud incorrecto","La Rana",JOptionPane.PLAIN_MESSAGE,new ImageIcon(Main.class.getResource("camping.png")));
-				}
-			}while(temp) ;
-		}
 		
 		if(tipo.equalsIgnoreCase("tienda")) {
 			boolean comp = false ;
@@ -309,6 +313,16 @@ public class Main {
 		String opciones[] = {"Ver estado de las parcelas","add empleado","add cliente","Salir"} ;
 		
 		do {
+			Calendar c1 = Calendar.getInstance() ;
+			
+			for(int x = 0 ; x <clientes.size() ; x++ ) {
+				
+				int dur = (int) Duration.between(clientes.get(x).getFechaSalida().toInstant(), c1.toInstant()).toDays();
+				
+				if(dur <=0) {
+					clientes.remove(x) ;
+				}
+			}
 			int opcion = JOptionPane.showOptionDialog(null, "Seleccione una opcion", "La Rana",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, new ImageIcon(Main.class.getResource("camping.png")), opciones,opciones[3]) ;
 			
 			switch (opcion) {

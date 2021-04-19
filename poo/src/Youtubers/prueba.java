@@ -18,5 +18,7 @@ public class prueba {
         int diitas = (int) Duration.between(cal1.toInstant(), cal2.toInstant()).toDays();
         System.out.println(diitas);
         System.out.println(cal1.MONTH);
+        Calendar c3 = Calendar.getInstance() ;
+        System.out.println(c3.getTime());
 	}
 }
