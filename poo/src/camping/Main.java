@@ -136,6 +136,33 @@ public class Main {
 	    
 		
 	}
+	
+	public static void lecturat() {
+		String linea = null;
+		
+        BufferedReader leerFichero;
+        int x = 0 ;
+       try {
+    	leerFichero = new BufferedReader (new FileReader("tiendas.txt"));
+    	
+		while( (linea = leerFichero.readLine()) != null)
+		{
+			
+		   StringTokenizer token = new StringTokenizer(linea, "\t");
+		   
+		   String     var =  token.nextToken().trim() ;
+		   
+		   int    var2=Integer.parseInt(var);
+		   
+		   tiendas[x] = var2 ;
+		   x++ ;
+		 }
+		
+		} catch (NumberFormatException | IOException e) {
+			
+			System.out.println("Ha habido un error");
+		}
+	}
 	public static void lecturaCliente() {
 		
 		String linea = null;
@@ -319,7 +346,7 @@ public class Main {
 		}while(temp) ;
 		
 		String opciones[] = {"Si","No"} ;
-		int opcion = JOptionPane.showOptionDialog(null, "¿Eres socio del camping?", "La Rana",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, new ImageIcon(Main.class.getResource("camping.png")), opciones,opciones[0]) ;
+		int opcion = JOptionPane.showOptionDialog(null, "ï¿½Eres socio del camping?", "La Rana",JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, new ImageIcon(Main.class.getResource("camping.png")), opciones,opciones[0]) ;
 		boolean socio ;
 		
 		if(opcion == 0) {
