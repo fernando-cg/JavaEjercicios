@@ -42,6 +42,7 @@ public class Cliente extends Persona {
 		idnext ++ ;
 	}
 
+	@SuppressWarnings("deprecation")
 	public Cliente(String nombre, int edad, boolean socioclub, int acompaniantes, Date fechaEntrada, Date fechaSalida,
 			String tipoHuesped,int longitudVehiculo) {
 		super(nombre, edad);
