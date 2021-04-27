@@ -36,8 +36,12 @@ public abstract class Persona {
 		return "Nombre: " + nombre + "\nEdad: " + edad;
 	}
 
+	public void setEdad(int edad) {
+		this.edad = edad;
+	}
 
-	
-	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
 	
 }

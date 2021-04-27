@@ -4,7 +4,7 @@ public class Empleado extends Persona {
 
 	public Empleado(String nombre, int edad, int idTienda) {
 		super(nombre, edad, idTienda);
-		// TODO Auto-generated constructor stub
+		
 	}
 
 }
