@@ -15,10 +15,14 @@ import java.util.Calendar;
 import javax.swing.JOptionPane;
 
 public class prueba {
+	
+	
 
 	static ArrayList<String> empleados = new ArrayList<String>() ;
 	
 	public static void main(String[] args) {
+		
+		System.out.println(((int) (Math.random()*4))+1);
 		
 		
         Calendar cal1 = Calendar.getInstance();
@@ -48,7 +52,7 @@ public static void eescritura() {
             
         } catch (IOException e) {
 
-            System.out.println("No se ha encontrado la ubicacion especificada");
+            System.out.println(Math.random()*5);
         }
 	}
 
