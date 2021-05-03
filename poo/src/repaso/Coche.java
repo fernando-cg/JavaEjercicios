@@ -18,6 +18,20 @@ public class Coche {
 		this.color = color;
 		this.km = km;
 	}
+
+	public String getMatricula() {
+		return matricula;
+	}
+
+	public String getMarca() {
+		return marca;
+	}
+
+	public int getKm() {
+		return km;
+	}
+	
+	
 	
 	
 }
